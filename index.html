@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fútbol: La Guía Definitiva del Deporte Rey</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Changa One & Mplus1 / Montserrat (equivalente Mente X) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pitch: {
+                            800: '#062d18',
+                            600: '#0f5229',
+                            500: '#15803d',
+                            400: '#22c55e',
+                            100: '#dcfce7',
+                        },
+                        gold: '#eab308',
+                        darkBg: '#0b0f17',
+                        cardBg: '#131b2e'
+                    },
+                    fontFamily: {
+                        changa: ['"Changa One"', 'cursive', 'sans-serif'],
+                        mentex: ['"Montserrat"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados y utilidades de renderizado de texto */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem; /* Equivalente a 12pt / 16px para máxima legibilidad */
+            line-height: 1.6;
+            background-color: #062d18;
+            /* Textura de césped fotourrealista con iluminación de reflector y franjas horizontales */
+            background-image: 
+                linear-gradient(to bottom, rgba(11, 15, 23, 0.82), rgba(6, 45, 24, 0.88)),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15) 0px,
+                    rgba(0, 0, 0, 0.15) 70px,
+                    transparent 70px,
+                    transparent 140px
+                ),
+                radial-gradient(circle at 50% 30%, rgba(34, 197, 94, 0.25), transparent 75%),
+                url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #e2e8f0;
+        }
+
+        .font-title {
+            font-family: 'Changa One', cursive, sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .font-body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(19, 27, 46, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .pitch-gradient {
+            background: radial-gradient(circle, rgba(21, 128, 61, 0.35) 0%, rgba(11, 15, 23, 0.95) 70%);
+        }
+
+        /* Transiciones suaves */
+        .transition-custom {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Estilo para barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #15803d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22c55e;
+        }
+    </style>
+</head>
+<body class="font-body min-h-screen flex flex-col justify-between selection:bg-pitch-500 selection:text-white">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToTop()">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-pitch-500 to-gold flex items-center justify-center shadow-lg shadow-pitch-500/30">
+                        <i class="fa-solid fa-futbol text-2xl text-slate-950"></i>
+                    </div>
+                    <div>
+                        <span class="font-title text-3xl tracking-wider text-white block leading-none">FÚTBOL</span>
+                        <span class="text-xs text-pitch-400 font-semibold tracking-widest uppercase">La Esencia del Deporte</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-4">
+                    <a href="#esencia" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-pitch-800/50 transition-custom">La Esencia</a>
+                    <a href="#como-se-juega" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-pitch-800/50 transition-custom">¿Cómo se Juega?</a>
+                    <a href="#reglas" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-pitch-800/50 transition-custom">Reglas</a>
+                    <a href="#posiciones" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-pitch-800/50 transition-custom">Posiciones</a>
+                    <a href="#pasion" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-pitch-800/50 transition-custom">Pasión</a>
+                    <a href="#torneos" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-pitch-800/50 transition-custom">Torneos</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center">
+                    <button onclick="openFieldModal()" class="bg-gradient-to-r from-pitch-500 to-pitch-600 hover:from-pitch-400 hover:to-pitch-500 text-white font-bold px-4 py-2 rounded-lg shadow-md transition-custom flex items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-[#]"></i>
+                        <span>Cancha Interactiva</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2" aria-label="Abrir Menú">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-gray-800 px-4 pt-2 pb-6 space-y-2">
+            <a href="#esencia" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-pitch-800">La Esencia</a>
+            <a href="#como-se-juega" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-pitch-800">¿Cómo se Juega?</a>
+            <a href="#reglas" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-pitch-800">Reglas</a>
+            <a href="#posiciones" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-pitch-800">Posiciones</a>
+            <a href="#pasion" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-pitch-800">La Pasión</a>
+            <a href="#torneos" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-pitch-800">Torneos y Ligas</a>
+            <button onclick="openFieldModal()" class="w-full mt-2 bg-pitch-500 hover:bg-pitch-400 text-white font-bold py-2 px-4 rounded-lg text-center">
+                Ver Cancha Interactiva
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-24 overflow-hidden pitch-gradient flex items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-pitch-500/20 text-pitch-400 border border-pitch-500/30 text-xs font-semibold uppercase tracking-wider mb-6">
+                Ajedrez en Movimiento
+            </span>
+            <h1 class="font-title text-5xl sm:text-7xl md:text-8xl text-white tracking-wide uppercase drop-shadow-lg mb-6 leading-none">
+                EL DEPORTE <span class="text-transparent bg-clip-text bg-gradient-to-r from-pitch-400 via-green-300 to-gold">REY</span>
+            </h1>
+            <p class="max-w-3xl mx-auto text-lg sm:text-xl text-gray-300 font-light leading-relaxed mb-10">
+                Una guía interactiva diseñada para comprender la belleza táctica, las reglas fundamentales, las posiciones clave y las competencias más apasionantes del planeta.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#esencia" class="bg-pitch-500 hover:bg-pitch-400 text-slate-950 font-bold px-8 py-4 rounded-xl shadow-lg shadow-pitch-500/25 transition-custom flex items-center justify-center space-x-2">
+                    <span>Aprender lo Básico</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#torneos" class="glass-panel hover:bg-white/10 text-white font-semibold px-8 py-4 rounded-xl border border-white/20 transition-custom flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-trophy text-gold"></i>
+                    <span>Explorar Torneos</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-12">
+
+        <!-- SECCIÓN 1: LA ESENCIA -->
+        <section id="esencia" class="scroll-mt-28">
+            <div class="text-center mb-12">
+                <h2 class="font-title text-4xl sm:text-5xl text-white uppercase tracking-wide">
+                    1. ¿DE QUÉ TRATA EL FÚTBOL? <span class="text-pitch-400">(LA ESENCIA)</span>
+                </h2>
+                <div class="w-24 h-1 bg-pitch-500 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl border border-gray-800 hover:border-pitch-500/50 transition-custom group">
+                    <div class="w-14 h-14 rounded-xl bg-pitch-500/10 text-pitch-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-custom">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 class="font-title text-2xl text-white mb-3 uppercase">Cooperación y Oposición</h3>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        Dos equipos de <strong>11 jugadores</strong> cada uno se enfrentan en un campo rectangular de césped (natural o sintético). El dinamismo se basa en el trabajo colectivo y el duelo táctico constante.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl border border-gray-800 hover:border-pitch-500/50 transition-custom group">
+                    <div class="w-14 h-14 rounded-xl bg-gold/10 text-gold flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-custom">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="font-title text-2xl text-white mb-3 uppercase">El Objetivo: El Gol</h3>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        Es simple en teoría, pero complejo en la práctica: <strong>hacer un gol</strong>. Ocurre cuando el balón cruza por completo la línea de meta, entre los dos postes y por debajo del travesaño.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl border border-gray-800 hover:border-pitch-500/50 transition-custom group">
+                    <div class="w-14 h-14 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-custom">
+                        <i class="fa-solid fa-hand-back-fist"></i>
+                    </div>
+                    <h3 class="font-title text-2xl text-white mb-3 uppercase">La Regla de Oro</h3>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        Está <strong>prohibido tocar la pelota con las manos o brazos</strong>. La única excepción es el arquero dentro de su área. El resto debe usar pies, torso, cabeza y pecho.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ¿CÓMO SE JUEGA? -->
+        <section id="como-se-juega" class="scroll-mt-28">
+            <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-pitch-500/20 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
+                    <i class="fa-solid fa-stopwatch text-[200px]"></i>
+                </div>
+
+                <div class="text-center md:text-left mb-10">
+                    <h2 class="font-title text-4xl sm:text-5xl text-white uppercase tracking-wide">
+                        2. ¿CÓMO SE JUEGA? <span class="text-pitch-400">(ESTRUCTURA Y TIEMPOS)</span>
+                    </h2>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">Duración, formato y resolución de partidos oficiales.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 relative z-10">
+                    <div class="bg-slate-900/80 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <i class="fa-regular fa-clock text-pitch-400 text-2xl"></i>
+                            <h3 class="font-title text-xl text-white uppercase">Duración Normal</h3>
+                        </div>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            Un partido oficial dura <strong>90 minutos</strong>, divididos en dos tiempos de <strong>45 minutos</strong> cada uno, con un descanso de 15 minutos en el medio (el entretiempo).
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/80 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <i class="fa-solid fa-plus text-gold text-2xl"></i>
+                            <h3 class="font-title text-xl text-white uppercase">Tiempo Añadido</h3>
+                        </div>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            Como el reloj no se detiene, el árbitro añade minutos extras ("tiempo de descuento" o "reposición") para compensar celebraciones, lesiones y faltas.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/80 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <i class="fa-solid fa-trophy text-red-400 text-2xl"></i>
+                            <h3 class="font-title text-xl text-white uppercase">Prórroga y Penales</h3>
+                        </div>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            En eliminatorias directas, si hay empate tras los 90', se juegan <strong>dos tiempos de 15'</strong> de prórroga. Si persiste, se define mediante tanda de penales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: REGLAS FUNDAMENTALES -->
+        <section id="reglas" class="scroll-mt-28">
+            <div class="text-center mb-12">
+                <h2 class="font-title text-4xl sm:text-5xl text-white uppercase tracking-wide">
+                    3. LAS REGLAS <span class="text-pitch-400">FUNDAMENTALES</span>
+                </h2>
+                <p class="text-gray-400 mt-2">Normas universales bajo la regulación de la FIFA</p>
+                <div class="w-24 h-1 bg-pitch-500 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- FUERA DE JUEGO (OFFSIDE) INTERACTIVO -->
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-gray-800">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+                        <div>
+                            <span class="bg-gold/20 text-gold text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Regla Clave</span>
+                            <h3 class="font-title text-3xl text-white uppercase mt-2">El Fuera de Juego (Offside)</h3>
+                            <p class="text-gray-300 text-sm mt-1">
+                                Un atacante está en posición adelantada si se encuentra más cerca de la línea de meta rival que el balón y el penúltimo adversario al momento de recibir el pase.
+                            </p>
+                        </div>
+                        <button onclick="toggleOffsideDemo()" class="bg-pitch-600 hover:bg-pitch-500 text-white font-bold px-5 py-3 rounded-xl transition-custom flex items-center justify-center space-x-2 shrink-0">
+                            <i class="fa-solid fa-play"></i>
+                            <span>Simular Fuera de Juego</span>
+                        </button>
+                    </div>
+
+                    <!-- Canvas/Demo Visual de Offside -->
+                    <div id="offside-demo-box" class="bg-pitch-800/60 rounded-xl p-4 border border-pitch-500/30 hidden transition-custom">
+                        <div class="text-center text-xs text-pitch-400 mb-2 font-semibold uppercase">Simulador de Posición Adelantada</div>
+                        <div class="relative w-full h-48 bg-emerald-900 rounded-lg overflow-hidden border-2 border-white/30 flex items-center justify-between px-8">
+                            <!-- Cancha visual -->
+                            <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/30"></div>
+                            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 border border-white/30 rounded-full"></div>
+                            
+                            <!-- Portero Rival -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-slate-950 font-bold text-xs">ARQ</div>
+                                <span class="text-[10px] text-gray-300 mt-1">Rival</span>
+                            </div>
+
+                            <!-- Defensor Rival (Línea de Offside) -->
+                            <div id="demo-defender" class="flex flex-col items-center transition-all duration-500">
+                                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">DEF</div>
+                                <span class="text-[10px] text-blue-300 mt-1">Último Defensor</span>
+                            </div>
+
+                            <!-- Línea imaginaria de Offside -->
+                            <div id="offside-line" class="absolute top-0 bottom-0 w-0.5 bg-red-500 border-r border-dashed border-red-300 transition-all duration-500"></div>
+
+                            <!-- Atacante -->
+                            <div id="demo-attacker" class="flex flex-col items-center transition-all duration-500">
+                                <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-xs">DEL</div>
+                                <span class="text-[10px] text-red-300 mt-1">Atacante</span>
+                            </div>
+
+                            <!-- Balón / Pasador -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-xs">MED</div>
+                                <span class="text-[10px] text-red-300 mt-1">Pase</span>
+                            </div>
+                        </div>
+                        <div id="offside-status" class="text-center mt-3 font-title text-lg text-white"></div>
+                    </div>
+                </div>
+
+                <!-- Tarjetas y Faltas -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="glass-panel p-6 rounded-2xl border border-gray-800">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-8 h-10 bg-yellow-400 rounded-sm shadow-md"></div>
+                            <h4 class="font-title text-2xl text-white uppercase">Tarjeta Amarilla</h4>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Amonestación por falta táctica, conducta antideportiva o reclamos. <strong>Dos amarillas en el mismo partido equivalen a una tarjeta roja.</strong>
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-gray-800">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-8 h-10 bg-red-600 rounded-sm shadow-md"></div>
+                            <h4 class="font-title text-2xl text-white uppercase">Tarjeta Roja</h4>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Expulsión directa por faltas violentas, agresiones o cortar jugadas manifiestas de gol. El equipo juega el resto del encuentro con un jugador menos.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-gray-800">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-pitch-500/20 text-pitch-400 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <h4 class="font-title text-2xl text-white uppercase">El Penal</h4>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Sanción recibida si se comete una falta defensiva dentro del área grande. Se ejecuta mediante un tiro libre a <strong>11 metros del arco</strong> frente al portero.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: ROLES Y POSICIONES TÁCTICAS -->
+        <section id="posiciones" class="scroll-mt-28">
+            <div class="text-center mb-12">
+                <h2 class="font-title text-4xl sm:text-5xl text-white uppercase tracking-wide">
+                    4. ROLES Y <span class="text-pitch-400">POSICIONES TÁCTICAS</span>
+                </h2>
+                <p class="text-gray-400 mt-2">Cada jugador cumple una función estratégica en el campo</p>
+                <div class="w-24 h-1 bg-pitch-500 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- ARQUERO -->
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-gold/50 transition-custom">
+                    <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-hands-holding"></i>
+                    </div>
+                    <h3 class="font-title text-2xl text-white uppercase mb-2">Arquero / Portero</h3>
+                    <p class="text-xs text-gold font-semibold uppercase tracking-wider mb-3">Guardián del Arco</p>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Su misión principal es evitar que la pelota entre a su meta. Es el único jugador autorizado a usar las manos, siempre dentro de su área grande.
+                    </p>
+                </div>
+
+                <!-- DEFENSAS -->
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-blue-500/50 transition-custom">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-title text-2xl text-white uppercase mb-2">Defensas</h3>
+                    <p class="text-xs text-blue-400 font-semibold uppercase tracking-wider mb-3">Zagueros y Laterales</p>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Son el escudo defensivo. Frenan el avance de los atacantes rivales, despejan situaciones de peligro y dan inicio a la salida ordenada de juego.
+                    </p>
+                </div>
+
+                <!-- MEDIOCAMPISTAS -->
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-pitch-400/50 transition-custom">
+                    <div class="w-12 h-12 rounded-xl bg-pitch-500/10 text-pitch-400 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="font-title text-2xl text-white uppercase mb-2">Mediocampistas</h3>
+                    <p class="text-xs text-pitch-400 font-semibold uppercase tracking-wider mb-3">Volantes y Cerebros</p>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        El motor del equipo. Se encargan de recuperar balones, distribuir el juego, conectar la defensa con el ataque e incorporarse al área rival.
+                    </p>
+                </div>
+
+                <!-- DELANTEROS -->
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-red-500/50 transition-custom">
+                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="font-title text-2xl text-white uppercase mb-2">Delanteros</h3>
+                    <p class="text-xs text-red-400 font-semibold uppercase tracking-wider mb-3">Extremos y arietes</p>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Encargados de culminar y definir las jugadas. Desequilibran la zaga rival con velocidad, regate y efectividad frente a la portería.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: ¿QUÉ SE SIENTE Y POR QUÉ MUEVE PASIONES? -->
+        <section id="pasion" class="scroll-mt-28">
+            <div class="relative glass-panel rounded-3xl p-8 sm:p-14 overflow-hidden border border-gray-800">
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                
+                <div class="relative z-10 max-w-4xl mx-auto text-center">
+                    <span class="text-gold font-bold text-sm tracking-widest uppercase mb-3 block">Emoción Pura</span>
+                    <h2 class="font-title text-4xl sm:text-6xl text-white uppercase mb-8">
+                        5. ¿QUÉ SE SIENTE Y POR QUÉ <span class="text-pitch-400">MUEVE PASIONES?</span>
+                    </h2>
+                    
+                    <div class="space-y-6 text-gray-200 text-base sm:text-lg leading-relaxed font-light italic">
+                        <p class="bg-slate-900/60 p-6 rounded-2xl border border-gray-800 text-left">
+                            <i class="fa-solid fa-quote-left text-pitch-500 text-2xl mr-2"></i>
+                            Imagínate estar en un estadio con 50,000 personas en silencio absoluto mientras un jugador se perfila para patear un tiro libre en el minuto 90. O el estallido ensordecedor que sacude una ciudad entera cuando la pelota entra en la red.
+                        </p>
+                        
+                        <p class="text-gray-300 text-left not-italic font-normal">
+                            El fútbol no es solo correr detrás de un esférico; es estrategia, ajedrez en movimiento, arte instantáneo y una montaña rusa de emociones. En un segundo, la tristeza más profunda de ir perdiendo se puede transformar en la gloria absoluta con un gol agónico. Es un idioma universal que une culturas, familias y amigos en una misma mesa o tribuna.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: TORNEOS Y COMPETENCIAS -->
+        <section id="torneos" class="scroll-mt-28">
+            <div class="text-center mb-10">
+                <h2 class="font-title text-4xl sm:text-5xl text-white uppercase tracking-wide">
+                    6. TORNEOS Y <span class="text-pitch-400">COMPETENCIAS</span>
+                </h2>
+                <p class="text-gray-400 mt-2">Los escenarios donde se escribe la historia del fútbol</p>
+                <div class="w-24 h-1 bg-pitch-500 mx-auto mt-3 rounded-full mb-8"></div>
+
+                <!-- Buscador de Torneos -->
+                <div class="max-w-md mx-auto relative mb-12">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="tournament-search" oninput="filterTournaments()" placeholder="Buscar torneo, liga o país..." 
+                           class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900/90 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-pitch-500 text-sm">
+                </div>
+            </div>
+
+            <!-- TAB 1: SELECCIONES NACIONALES -->
+            <div class="mb-14">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i class="fa-solid fa-earth-americas text-2xl text-gold"></i>
+                    <h3 class="font-title text-3xl text-white uppercase">1. Torneos de Selecciones Nacionales</h3>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 tournament-card-group">
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Copa Mundial FIFA World Cup">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-bold text-gold bg-gold/10 px-2.5 py-1 rounded-md uppercase">Mundial</span>
+                            <i class="fa-solid fa-trophy text-gold text-xl"></i>
+                        </div>
+                        <h4 class="font-title text-2xl text-white mb-2">Copa Mundial de la FIFA</h4>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            El torneo más importante, prestigioso y visto del planeta. Se celebra cada 4 años y reúne a las mejores selecciones internacionales tras una larga fase de clasificación.
+                        </p>
+                    </div>
+
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Eurocopa UEFA Euro Europa">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md uppercase">Europa</span>
+                            <i class="fa-solid fa-shield text-blue-400 text-xl"></i>
+                        </div>
+                        <h4 class="font-title text-2xl text-white mb-2">Eurocopa (UEFA Euro)</h4>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            Se juega cada 4 años entre las mejores selecciones de Europa. Es considerada como el torneo de mayor nivel táctico y competitivo después del Mundial.
+                        </p>
+                    </div>
+
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Copa América CONMEBOL Sudamerica Argentina Brasil Uruguay">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-bold text-pitch-400 bg-pitch-500/10 px-2.5 py-1 rounded-md uppercase">Sudamérica</span>
+                            <i class="fa-solid fa-star text-pitch-400 text-xl"></i>
+                        </div>
+                        <h4 class="font-title text-2xl text-white mb-2">Copa América (CONMEBOL)</h4>
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            El torneo de selecciones más antiguo del mundo. Reúne a las potencias de Sudamérica y destaca por su enorme intensidad y pasión física.
+                        </p>
+                    </div>
+
+                    <!-- Otros Torneos Continentales -->
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800 md:col-span-2 lg:col-span-3" data-name="Copa Africana CAF Copa Oro CONCACAF Copa Asiatica AFC">
+                        <h4 class="font-title text-xl text-white mb-4 uppercase text-pitch-400">Otros Torneos Continentales Destacados</h4>
+                        <div class="grid sm:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-gray-800">
+                                <span class="font-bold text-white block mb-1">Copa Africana (CAF)</span>
+                                <p class="text-gray-400">Destaca por la fuerza física, velocidad y riqueza de talentos emergentes.</p>
+                            </div>
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-gray-800">
+                                <span class="font-bold text-white block mb-1">Copa Oro (CONCACAF)</span>
+                                <p class="text-gray-400">El máximo torneo de Norteamérica, Centroamérica y el Caribe.</p>
+                            </div>
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-gray-800">
+                                <span class="font-bold text-white block mb-1">Copa Asiática (AFC)</span>
+                                <p class="text-gray-400">La competición reina del continente asiático en expansión constante.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: INTERNACIONALES DE CLUBES -->
+            <div class="mb-14">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i class="fa-solid fa-crown text-2xl text-gold"></i>
+                    <h3 class="font-title text-3xl text-white uppercase">2. Torneos Internacionales de Clubes</h3>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 tournament-card-group">
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="UEFA Champions League Orejona Europa Real Madrid Barcelona Bayern City">
+                        <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md uppercase mb-3 inline-block">Europa</span>
+                        <h4 class="font-title text-2xl text-white mb-2">UEFA Champions League</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            La cima del fútbol de clubes ("La Orejona"). Enfrenta a los mejores equipos de Europa como Real Madrid, Barcelona, Bayern Múnich o Manchester City.
+                        </p>
+                    </div>
+
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Copa Libertadores CONMEBOL Sudamerica Boca River Flamengo Palmeiras Peñarol">
+                        <span class="text-xs font-bold text-pitch-400 bg-pitch-500/10 px-2.5 py-1 rounded-md uppercase mb-3 inline-block">Sudamérica</span>
+                        <h4 class="font-title text-2xl text-white mb-2">Copa Libertadores</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            El torneo más prestigioso de América. Famoso por sus ambientes e hinchadas apasionadas y clubes históricos como Boca, River, Flamengo o Palmeiras.
+                        </p>
+                    </div>
+
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Mundial de Clubes FIFA Supermundial">
+                        <span class="text-xs font-bold text-gold bg-gold/10 px-2.5 py-1 rounded-md uppercase mb-3 inline-block">Global</span>
+                        <h4 class="font-title text-2xl text-white mb-2">Mundial de Clubes / Supermundial</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Competición donde miden fuerzas los clubes campeones de cada confederación para definir cuál es la mejor escuadra del planeta.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: LIGAS DOMÉSTICAS -->
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <i class="fa-solid fa-flag text-2xl text-pitch-400"></i>
+                    <h3 class="font-title text-3xl text-white uppercase">3. Ligas Domésticas Principales</h3>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 tournament-card-group">
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Premier League Inglaterra English Premier">
+                        <h4 class="font-title text-xl text-white mb-1">Premier League</h4>
+                        <p class="text-xs text-pitch-400 font-bold uppercase mb-3">Inglaterra</p>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            Considerada la liga más competitiva, millonaria y entretenida del mundo.
+                        </p>
+                    </div>
+
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="LaLiga España Clásico Real Madrid Barcelona">
+                        <h4 class="font-title text-xl text-white mb-1">LaLiga</h4>
+                        <p class="text-xs text-pitch-400 font-bold uppercase mb-3">España</p>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            Reconocida por su altísimo nivel técnico y por albergar "El Clásico": Real Madrid vs. Barcelona.
+                        </p>
+                    </div>
+
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Serie A Italia Juventus Inter Milan">
+                        <h4 class="font-title text-xl text-white mb-1">Serie A</h4>
+                        <p class="text-xs text-pitch-400 font-bold uppercase mb-3">Italia</p>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            Legendaria por su rigor táctico, solidez defensiva y clubes históricos como Juventus, Inter y Milan.
+                        </p>
+                    </div>
+
+                    <div class="tournament-card glass-panel p-6 rounded-2xl border border-gray-800" data-name="Bundesliga Alemania Bayern Munich">
+                        <h4 class="font-title text-xl text-white mb-1">Bundesliga</h4>
+                        <p class="text-xs text-pitch-400 font-bold uppercase mb-3">Alemania</p>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            Famosa por sus estadios llenos, ambiente de animación e intensísimo fútbol ofensivo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ligas de América -->
+                <div class="mt-6 glass-panel p-6 rounded-2xl border border-gray-800">
+                    <h4 class="font-title text-xl text-white mb-3 uppercase">Destacadas en América</h4>
+                    <p class="text-gray-300 text-sm">
+                        Resaltan por su competitividad el <strong>Brasileirão</strong> (Brasil), la <strong>Liga Profesional</strong> (Argentina) y la <strong>Liga MX</strong> (México).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 glass-panel mt-20 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="font-title text-2xl text-white uppercase tracking-wider mb-2">Facundo Briceño</p>
+            <p class="text-gray-400 text-xs font-light">
+                Plataforma interactiva sobre la Esencia, Reglas y Torneos del Deporte Rey.
+            </p>
+            <p class="text-gray-600 text-[10px] mt-4">
+                © Guía de Fútbol. Diseñado con altos estándares UX/UI y Accesibilidad.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL: CANCHA INTERACTIVA DE POSICIONES -->
+    <div id="field-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-3xl w-full rounded-3xl p-6 sm:p-8 border border-pitch-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeFieldModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="font-title text-3xl text-white uppercase mb-2">Esquema Táctico en Cancha</h3>
+            <p class="text-xs text-gray-400 mb-6">Haz clic sobre un jugador en el campo para ver los detalles de su posición.</p>
+
+            <!-- Representación de Cancha -->
+            <div class="relative w-full h-80 sm:h-96 bg-gradient-to-b from-pitch-800 to-pitch-600 rounded-2xl border-2 border-white/40 p-4 flex flex-col justify-between overflow-hidden shadow-inner">
+                <!-- Líneas de Cancha -->
+                <div class="absolute left-0 right-0 top-1/2 h-0.5 bg-white/40 -translate-y-1/2"></div>
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border-2 border-white/40 rounded-full"></div>
+
+                <!-- Portería / Área superior (Rival) -->
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-12 border-b-2 border-x-2 border-white/40"></div>
+
+                <!-- Portería / Área inferior (Local) -->
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-40 h-12 border-t-2 border-x-2 border-white/40"></div>
+
+                <!-- JUGADORES EN CAMPO (Formación 1-4-3-3) -->
+                <!-- Delanteros -->
+                <div class="flex justify-around items-center relative z-10 pt-4">
+                    <button onclick="showRoleInfo('Extremo / Delantero', 'Se ubican en las zonas de ataque. Desequilibran por las bandas, centran y definen frente a puerta.')" class="w-10 h-10 rounded-full bg-red-600 text-white font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        DEL
+                    </button>
+                    <button onclick="showRoleInfo('Centrodelantero', 'El principal referente del gol. Fija defensas rivales y remata las jugadas del equipo.')" class="w-10 h-10 rounded-full bg-red-600 text-white font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        9
+                    </button>
+                    <button onclick="showRoleInfo('Extremo / Delantero', 'Se ubican en las zonas de ataque. Desequilibran por las bandas, centran y definen frente a puerta.')" class="w-10 h-10 rounded-full bg-red-600 text-white font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        DEL
+                    </button>
+                </div>
+
+                <!-- Mediocampistas -->
+                <div class="flex justify-around items-center relative z-10 px-8">
+                    <button onclick="showRoleInfo('Volante / Mediocampista', 'Aporta equilibrio entre defensa y ataque. Distribuye balones y recupera la posesión.')" class="w-10 h-10 rounded-full bg-pitch-400 text-slate-950 font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        MED
+                    </button>
+                    <button onclick="showRoleInfo('Mediocampista Organizador', 'El cerebro de la escuadra. Dicta el ritmo del partido con su visión de juego y pases precisos.')" class="w-10 h-10 rounded-full bg-pitch-400 text-slate-950 font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        10
+                    </button>
+                    <button onclick="showRoleInfo('Volante / Mediocampista', 'Aporta equilibrio entre defensa y ataque. Distribuye balones y recupera la posesión.')" class="w-10 h-10 rounded-full bg-pitch-400 text-slate-950 font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        MED
+                    </button>
+                </div>
+
+                <!-- Defensores -->
+                <div class="flex justify-around items-center relative z-10 px-4">
+                    <button onclick="showRoleInfo('Lateral Izquierdo', 'Defiende la banda e incursiona en ataque para enviar centros peligrosos.')" class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        LAT
+                    </button>
+                    <button onclick="showRoleInfo('Defensa Central', 'Líder de la zaga. Bloquea disparos, gana duelos aéreos y despeja el peligro.')" class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        DFC
+                    </button>
+                    <button onclick="showRoleInfo('Defensa Central', 'Líder de la zaga. Bloquea disparos, gana duelos aéreos y despeja el peligro.')" class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        DFC
+                    </button>
+                    <button onclick="showRoleInfo('Lateral Derecho', 'Defiende la banda e incursiona en ataque para enviar centros peligrosos.')" class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        LAT
+                    </button>
+                </div>
+
+                <!-- Portero -->
+                <div class="flex justify-center items-center relative z-10 pb-2">
+                    <button onclick="showRoleInfo('Arquero / Guardameta', 'El único jugador que usa las manos en el área. Su objetivo es mantener la portería en cero.')" class="w-10 h-10 rounded-full bg-yellow-500 text-slate-950 font-bold text-xs shadow-lg hover:scale-125 transition-custom flex items-center justify-center border-2 border-white">
+                        ARQ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel informativo al hacer click -->
+            <div id="role-info-box" class="mt-6 p-4 rounded-xl bg-slate-900/90 border border-gray-800">
+                <h4 id="role-title" class="font-title text-xl text-gold uppercase">Selecciona un jugador</h4>
+                <p id="role-desc" class="text-sm text-gray-300 mt-1">Haz clic en los botones del campo superior para desplegar la información del rol táctico.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LÓGICA E INTERACTIVIDAD -->
+    <script>
+        // Control de Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Scroll suave al inicio
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Modal de Cancha Táctica
+        function openFieldModal() {
+            document.getElementById('field-modal').classList.remove('hidden');
+        }
+
+        function closeFieldModal() {
+            document.getElementById('field-modal').classList.add('hidden');
+        }
+
+        function showRoleInfo(title, description) {
+            document.getElementById('role-title').innerText = title;
+            document.getElementById('role-desc').innerText = description;
+        }
+
+        // Buscador Filtro de Torneos
+        function filterTournaments() {
+            const query = document.getElementById('tournament-search').value.toLowerCase();
+            const cards = document.querySelectorAll('.tournament-card');
+
+            cards.forEach(card => {
+                const searchData = card.getAttribute('data-name').toLowerCase();
+                if (searchData.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Demo Interactivo de Fuera de Juego (Offside)
+        let isOffsideDemoActive = false;
+        let demoInterval = null;
+
+        function toggleOffsideDemo() {
+            const demoBox = document.getElementById('offside-demo-box');
+            demoBox.classList.toggle('hidden');
+
+            if (!demoBox.classList.contains('hidden')) {
+                runOffsideSimulation();
+            } else {
+                clearInterval(demoInterval);
+            }
+        }
+
+        function runOffsideSimulation() {
+            const defender = document.getElementById('demo-defender');
+            const line = document.getElementById('offside-line');
+            const attacker = document.getElementById('demo-attacker');
+            const status = document.getElementById('offside-status');
+
+            let step = 0;
+
+            if (demoInterval) clearInterval(demoInterval);
+
+            demoInterval = setInterval(() => {
+                if (step === 0) {
+                    // Posición Legal
+                    defender.style.transform = 'translateX(0px)';
+                    line.style.left = '55%';
+                    attacker.style.transform = 'translateX(0px)';
+                    status.innerHTML = '<span class="text-pitch-400"><i class="fa-solid fa-circle-check"></i> POSICIÓN VÁLIDA:</span> El atacante está por detrás de la línea del defensor.';
+                    step = 1;
+                } else {
+                    // Posición de Offside
+                    attacker.style.transform = 'translateX(-80px)';
+                    status.innerHTML = '<span class="text-red-500"><i class="fa-solid fa-triangle-exclamation"></i> FUERA DE JUEGO (OFFSIDE):</span> El atacante sobrepasó al penúltimo rival al recibir el pase.';
+                    step = 0;
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
